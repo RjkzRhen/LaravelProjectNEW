@@ -8,6 +8,7 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index'); // 
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); // Форма добавления пользователя
 Route::post('/users', [UserController::class, 'store'])->name('users.store'); // Обработка формы
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 // Маршруты для таблицы csv
 Route::get('/csv', [CsvController::class, 'index'])->name('csv.index');
@@ -15,6 +16,7 @@ Route::get('/csv/create', [CsvController::class, 'create'])->name('csv.create');
 Route::post('/csv/store', [CsvController::class, 'store'])->name('csv.store');
 Route::get('/csv/edit/{id}', [CsvController::class, 'edit'])->name('csv.edit');
 Route::post('/csv/update/{id}', [CsvController::class, 'update'])->name('csv.update');
+Route::get('/csv/destroy/{id}', [CsvController::class, 'destroy'])->name('csv.destroy');
 
 // Главная страница
 Route::get('/', function () {

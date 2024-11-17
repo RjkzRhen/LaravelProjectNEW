@@ -53,21 +53,21 @@
 <body>
 <div class="container">
     <h1>Добавить пользователя</h1>
-    <form action="{{ route('users.store') }}" method="POST">
+    <form method="POST" action="{{ route('csv.store') }}">
         @csrf
-        <label for="last_name">Фамилия:</label>
+        <label for="last_name">Фамилия</label>
         <input type="text" name="last_name" required>
-        <label for="first_name">Имя:</label>
+        <label for="first_name">Имя</label>
         <input type="text" name="first_name" required>
-        <label for="middle_name">Отчество:</label>
+        <label for="middle_name">Отчество</label>
         <input type="text" name="middle_name">
-        <label for="age">Возраст:</label>
+        <label for="age">Возраст</label>
         <input type="number" name="age" required>
-        <label for="username">Имя пользователя:</label>
+        <label for="username">Имя пользователя</label>
         <input type="text" name="username" required>
-        <label for="password">Пароль:</label>
+        <label for="password">Пароль</label>
         <input type="password" name="password" required>
-        <button type="submit">Добавить</button>
+        <button type="submit">Добавить запись</button>
     </form>
 </div>
 </body>

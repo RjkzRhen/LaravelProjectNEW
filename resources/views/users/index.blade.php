@@ -73,7 +73,12 @@
                 <td>{{ $user->age }}</td>
                 <td>{{ $user->username }}</td>
                 <td class="actions">
-                    <a href="{{ route('users.edit', $user->id) }}">Редактировать</a>
+                    <!-- Форма для удаления -->
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?')">Удалить</button>
+                    </form>
                 </td>
             </tr>
         @endforeach

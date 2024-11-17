@@ -60,27 +60,27 @@ class CsvController extends Controller
 
         $file = storage_path("app/{$this->csvPath}");
 
-        // Проверяем существование файла
+        // Проверка на существование файла
         if (!file_exists($file)) {
-            // Создаем новый файл с заголовком, если файл отсутствует
+            // Создаем файл с заголовком, если файл отсутствует
             $header = ['id', 'last_name', 'first_name', 'middle_name', 'age', 'username', 'password'];
             $handle = fopen($file, 'w');
             fputcsv($handle, $header, ';');
             fclose($handle);
         }
 
-        // Читаем файл и преобразуем строки
+        // Чтение текущего содержимого CSV файла
         $csvData = array_map(function ($row) {
             return str_getcsv($row, ';');
         }, file($file));
 
-        // Убираем заголовок из данных
+        // Извлечение заголовка
         $header = array_shift($csvData);
 
         // Генерация нового ID
         $newId = count($csvData) + 1;
 
-        // Добавляем новую запись
+        // Создание новой записи
         $newRow = [
             $newId,
             $request->last_name,
@@ -90,11 +90,13 @@ class CsvController extends Controller
             $request->username,
             $request->password,
         ];
+
+        // Добавление записи в CSV
         $csvData[] = $newRow;
 
-        // Перезаписываем CSV с новым содержимым
+        // Перезапись CSV файла с новыми данными
         $handle = fopen($file, 'w');
-        fputcsv($handle, $header, ';'); // Сохраняем заголовок
+        fputcsv($handle, $header, ';'); // Запись заголовков
         foreach ($csvData as $row) {
             fputcsv($handle, $row, ';');
         }
@@ -178,5 +180,44 @@ class CsvController extends Controller
         fclose($handle);
 
         return redirect()->route('csv.index')->with('success', 'Запись обновлена!');
+    }
+    public function destroy($id)
+    {
+        $file = storage_path("app/{$this->csvPath}");
+
+        if (!file_exists($file)) {
+            return redirect()->back()->with('error', 'CSV-файл не найден.');
+        }
+
+        // Читаем данные из CSV
+        $csvData = array_map(function ($row) {
+            return str_getcsv($row, ';');
+        }, file($file));
+
+        $header = array_shift($csvData);
+
+        // Проверяем, существует ли запись с данным ID
+        $found = false;
+        foreach ($csvData as $index => $row) {
+            if ($row[0] == $id) {
+                unset($csvData[$index]); // Удаляем строку с найденным ID
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            return redirect()->back()->with('error', 'Запись не найдена.');
+        }
+
+        // Перезаписываем CSV с обновленным содержимым
+        $handle = fopen($file, 'w');
+        fputcsv($handle, $header, ';');
+        foreach ($csvData as $row) {
+            fputcsv($handle, $row, ';');
+        }
+        fclose($handle);
+
+        return redirect()->route('csv.index')->with('success', 'Запись удалена!');
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,7 +88,10 @@
                     <td>{{ $cell }}</td>
                 @endforeach
                 <td>
-                    <a href="{{ route('csv.edit', $index + 1) }}">Редактировать</a>
+                    <!-- Форма для удаления -->
+                    <form action="{{ route('csv.destroy', $index + 1) }}" method="GET" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить эту запись?')">Удалить</button>
+                    </form>
                 </td>
             </tr>
         @endforeach

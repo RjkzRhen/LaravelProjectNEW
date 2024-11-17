@@ -32,24 +32,50 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // Валидация данных
         $validated = $request->validate([
             'last_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'age' => 'required|integer|min:1|max:150',
-            'username' => 'required|string|max:255|unique:user_table,username', // Обновляем имя таблицы
+            'username' => 'required|string|max:255|unique:users,username',
             'password' => 'required|string|min:6',
         ]);
 
-        User::create([
-            'last_name' => $validated['last_name'],
-            'first_name' => $validated['first_name'],
-            'middle_name' => $validated['middle_name'],
-            'age' => $validated['age'],
-            'username' => $validated['username'],
-            'password' => bcrypt($validated['password']),
-        ]);
+        try {
+            // Создание нового пользователя
+            User::create([
+                'last_name' => $validated['last_name'],
+                'first_name' => $validated['first_name'],
+                'middle_name' => $validated['middle_name'],
+                'age' => $validated['age'],
+                'username' => $validated['username'],
+                'password' => bcrypt($validated['password']),
+            ]);
 
-        return redirect()->route('users.index')->with('success', 'Пользователь успешно добавлен!');
+            return redirect()->route('users.index')->with('success', 'Пользователь успешно добавлен!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Обработка ошибки, если имя пользователя уже существует
+            if ($e->getCode() == 23000) {
+                return redirect()->back()->withErrors(['username' => 'Имя пользователя уже существует.']);
+            }
+            // Обработка других ошибок
+            return redirect()->back()->withErrors(['error' => 'Произошла ошибка при добавлении пользователя.']);
+        }
+    }
+    public function destroy($id)
+    {
+        // Находим пользователя по ID
+        $user = User::find($id);
+
+        // Проверяем, существует ли пользователь
+        if (!$user) {
+            return redirect()->route('users.index')->with('error', 'Пользователь не найден.');
+        }
+
+        // Удаляем пользователя
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'Пользователь успешно удален!');
     }
 }
