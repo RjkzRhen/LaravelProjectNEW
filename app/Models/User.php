@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Models;
+namespace App\Models; // Определяем пространство имен для модели
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory; // Подключаем трейт HasFactory для использования фабрик
+use Illuminate\Database\Eloquent\Model; // Подключаем базовый класс модели
 
-class User extends Model
+class User extends Model // Определяем класс модели User, наследующийся от Model
 {
-    use HasFactory;
+    use HasFactory; // Используем трейт HasFactory
 
     // Добавляем разрешение для массового присваивания
-    protected $fillable = [
-        'last_name',
-        'first_name',
-        'middle_name',
-        'age',
-        'username',
-        'password',
+    protected $fillable = [ // Определяем массив $fillable, который содержит поля, доступные для массового присваивания
+        'last_name', // Поле last_name
+        'first_name', // Поле first_name
+        'middle_name', // Поле middle_name
+        'age', // Поле age
+        'username', // Поле username
+        'password', // Поле password
     ];
 }
-
