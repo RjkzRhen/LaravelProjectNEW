@@ -8,11 +8,6 @@ RUN apk add --no-cache \
     libzip-dev \
     oniguruma-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
-<<<<<<< Updated upstream
-    
-=======
-
->>>>>>> Stashed changes
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/php/laravel_project_table
 COPY . .

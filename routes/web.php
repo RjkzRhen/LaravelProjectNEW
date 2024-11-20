@@ -2,6 +2,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CsvController;
+use App\Http\Controllers\PhoneController;
+
+Route::get('/phones', [PhoneController::class, 'index'])->name('phones.index');
+Route::get('/phones/create', [PhoneController::class, 'create'])->name('phones.create');
+Route::post('/phones', [PhoneController::class, 'store'])->name('phones.store');
 
 // Маршруты для таблицы users
 Route::get('/users', [UserController::class, 'index'])->name('users.index'); // Список пользователей
