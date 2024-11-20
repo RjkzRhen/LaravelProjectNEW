@@ -7,6 +7,7 @@ use App\Http\Controllers\PhoneController;
 Route::get('/phones', [PhoneController::class, 'index'])->name('phones.index');
 Route::get('/phones/create', [PhoneController::class, 'create'])->name('phones.create');
 Route::post('/phones', [PhoneController::class, 'store'])->name('phones.store');
+Route::delete('/phones/{id}', [PhoneController::class, 'destroy'])->name('phones.destroy');
 
 // Маршруты для таблицы users
 Route::get('/users', [UserController::class, 'index'])->name('users.index'); // Список пользователей

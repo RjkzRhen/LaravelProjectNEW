@@ -34,4 +34,11 @@ class PhoneController extends Controller
 
         return redirect()->route('phones.index')->with('success', 'Номер успешно добавлен!');
     }
+    public function destroy($id)
+    {
+        $phone = Phone::findOrFail($id);
+        $phone->delete();
+
+        return redirect()->route('phones.index')->with('success', 'Номер успешно удален!');
+    }
 }
