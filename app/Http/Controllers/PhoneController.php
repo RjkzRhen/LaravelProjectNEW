@@ -24,6 +24,7 @@ class PhoneController extends Controller
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'value' => 'required|string|max:255',
