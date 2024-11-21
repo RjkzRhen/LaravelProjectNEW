@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добавить номер</title>
+    <title>Добавить номер к пользователю</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
             margin-top: 10px;
             font-weight: bold;
         }
-        select, input[type="text"] {
+        input[type="text"] {
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ddd;
@@ -52,15 +52,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>Добавить номер</h1>
-    <form action="{{ route('phones.store') }}" method="POST">
+    <h1>Добавить номер к пользователю</h1>
+    <form action="{{ route('phones.storeToUser', $user->id) }}" method="POST">
         @csrf
-        <label for="user_id">ФИО Пользователя:</label>
-        <select name="user_id" required>
-            @foreach($users as $user)
-                <option value="{{ $user->id }}">{{ $user->last_name }} {{ $user->first_name }} {{ $user->middle_name }}</option>
-            @endforeach
-        </select>
         <label for="values">Номера:</label>
         <div id="phone_values_container">
             <input type="text" name="values[]" required>

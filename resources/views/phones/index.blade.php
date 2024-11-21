@@ -86,21 +86,31 @@
         <tr>
             <th>ID</th>
             <th>ФИО Пользователя</th>
-            <th>Номер</th>
+            <th>Номера</th>
             <th>Действия</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($phones as $phone)
+        @foreach($users as $user)
             <tr>
-                <td>{{ $phone->id }}</td>
-                <td>{{ $phone->user->last_name }} {{ $phone->user->first_name }} {{ $phone->user->middle_name }}</td>
-                <td>{{ $phone->value }}</td>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->last_name }} {{ $user->first_name }} {{ $user->middle_name }}</td>
                 <td>
-                    <form action="{{ route('phones.destroy', $phone->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить этот номер?');">
+                    @foreach($user->phones as $phone)
+                        {{ $phone->value }} <a href="{{ route('phones.edit', $phone->id) }}">Редактировать</a>
+                        <form action="{{ route('phones.destroy', $phone->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить этот номер?');" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-button">Удалить</button>
+                        </form><br>
+                    @endforeach
+                    <a href="{{ route('phones.addToUser', $user->id) }}">Добавить номер</a>
+                </td>
+                <td>
+                    <form action="{{ route('phones.destroyUser', $user->id) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить этого пользователя?');" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button">Удалить</button>
+                        <button type="submit" class="delete-button">Удалить пользователя</button>
                     </form>
                 </td>
             </tr>
