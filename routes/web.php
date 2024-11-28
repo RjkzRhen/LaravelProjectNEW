@@ -39,4 +39,4 @@ Route::get('/csv/destroy/{id}', [CsvController::class, 'destroy'])->name('csv.de
 // Главная страница
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
