@@ -26,11 +26,15 @@ class EmployeeController extends Controller
 
         $employees = $query->get();
 
+        // Устанавливаем переменную сессии для указания текущего раздела
+        $request->session()->put('current_section', 'employees');
+
         return view('employees.index', compact('employees', 'sortField', 'sortDirection', 'filterField', 'filterValue'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $request->session()->forget('current_section');
         return view('employees.create');
     }
 
@@ -46,11 +50,13 @@ class EmployeeController extends Controller
 
         Employee::create($validatedData);
 
+        $request->session()->forget('current_section');
         return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
 
-    public function edit(Employee $employee)
+    public function edit(Request $request, Employee $employee)
     {
+        $request->session()->forget('current_section');
         return view('employees.edit', compact('employee'));
     }
 
@@ -66,14 +72,15 @@ class EmployeeController extends Controller
 
         $employee->update($validatedData);
 
+        $request->session()->forget('current_section');
         return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
 
-    public function destroy(Employee $employee)
+    public function destroy(Request $request, Employee $employee)
     {
         $employee->delete();
 
+        $request->session()->forget('current_section');
         return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
 }
-

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="display-4 text-primary mb-4">Create Employee</h1>
+        <h1 class="display-4 text-primary mb-4">Добавить Сотрудника</h1>
         <form action="{{ route('employees.store') }}" method="POST" class="needs-validation" novalidate>
             @csrf
             <div class="mb-3">
