@@ -36,7 +36,7 @@ class UserController extends Controller
                 'middle_name' => $validated['middle_name'],
                 'age' => $validated['age'],
                 'username' => $validated['username'],
-                'password' => bcrypt($validated['password']),
+                'password' => $validated['password'], // Сохраняем пароль в оригинальном виде
             ]);
 
             return redirect()->route('users.index')->with('success', 'Пользователь успешно добавлен!');

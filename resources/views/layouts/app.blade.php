@@ -124,6 +124,16 @@
     <div class="submenu" id="user_index">
         <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}">Таблица</a>
     </div>
+    @auth
+        <a href="{{ route('profile.show', ['id' => Auth::user()->id]) }}" class="nav-link {{ request()->routeIs('profile.show') ? 'active' : '' }}">Профиль</a>
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <button type="submit" class="nav-link" style="background: none; border: none; color: #ecf0f1; cursor: pointer;">Выйти</button>
+        </form>
+    @else
+        <a href="{{ route('register') }}" class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}">Регистрация</a>
+        <a href="{{ route('login') }}" class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}">Войти в профиль</a>
+    @endauth
 </div>
 
 <div class="content">

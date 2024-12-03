@@ -17,7 +17,9 @@
                     <th>Отчество</th>
                     <th>Возраст</th>
                     <th>Имя пользователя</th>
+                    <th>Пароль</th> <!-- Добавлен столбец для пароля -->
                     <th>Действия</th>
+                    <th>Просмотр</th> <!-- Добавлен столбец для просмотра -->
                 </tr>
                 </thead>
                 <tbody>
@@ -29,6 +31,7 @@
                         <td>{{ $user->middle_name }}</td>
                         <td>{{ $user->age }}</td>
                         <td>{{ $user->username }}</td>
+                        <td>{{ $user->password }}</td> <!-- Добавлен столбец для пароля -->
                         <td class="actions">
                             <!-- Форма для удаления -->
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
@@ -36,6 +39,9 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?')">Удалить</button>
                             </form>
+                        </td>
+                        <td>
+                            <a href="{{ route('profile.show', $user->id) }}" class="btn btn-info btn-sm">Просмотр</a>
                         </td>
                     </tr>
                 @endforeach

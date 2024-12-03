@@ -4,11 +4,37 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CsvController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AuthController;
+
 
 // Главная страница
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::prefix('user-index')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::get('/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/', [UserController::class, 'store'])->name('users.store');
+    Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/profile/{id}', [AuthController::class, 'showProfile'])->name('profile.show');
+});
+
+
+// Маршруты для аутентификации
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/profile/form', [AuthController::class, 'showProfileForm'])->name('profile.form');
+Route::post('/profile/save', [AuthController::class, 'saveProfile'])->name('profile.save');
+
+Route::get('/profile/{id}', [AuthController::class, 'showProfile'])->name('profile.show');
+Route::put('/profile/{id}', [AuthController::class, 'updateProfile'])->name('profile.update');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Маршруты для сотрудников
 Route::prefix('employee-directory')->group(function () {
@@ -31,14 +57,6 @@ Route::prefix('phone-list')->group(function () {
     Route::get('/user/{id}/add', [PhoneController::class, 'addToUser'])->name('phones.addToUser');
     Route::post('/user/{id}/store', [PhoneController::class, 'storeToUser'])->name('phones.storeToUser');
     Route::delete('/user/{id}', [PhoneController::class, 'destroyUser'])->name('phones.destroyUser');
-});
-
-// Маршруты для таблицы users
-Route::prefix('user-index')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('users.index');
-    Route::get('/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/', [UserController::class, 'store'])->name('users.store');
-    Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 // Маршруты для таблицы csv
