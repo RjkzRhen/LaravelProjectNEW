@@ -9,37 +9,46 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function showRegistrationForm()
+    // Отображение формы регистрации
+    public function showRegisterForm()
     {
         return view('auth.register');
     }
 
+    // Обработка данных регистрации
     public function register(Request $request)
     {
         $request->validate([
             'username' => 'required|unique:users',
             'password' => 'required|min:6',
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'middle_name' => 'nullable',
+            'age' => 'required|integer',
         ]);
 
         $user = User::create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'last_name' => '', // Значение по умолчанию
-            'first_name' => '', // Значение по умолчанию
-            'middle_name' => '', // Значение по умолчанию
-            'age' => 0, // Значение по умолчанию
+            'last_name' => $request->last_name,
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'age' => $request->age,
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('profile.form');
+        return redirect()->route('profile.show', ['id' => $user->id])
+            ->with('success', 'Вы успешно зарегистрировались и вошли в систему.');
     }
 
+    // Отображение формы входа
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
+    // Обработка данных входа
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -50,52 +59,26 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Получаем текущего пользователя
-            $user = Auth::user();
-
-            // Перенаправляем на страницу профиля пользователя
-            return redirect()->route('profile.show', ['id' => $user->id])->with('success', 'Вы успешно вошли в систему.');
+            return redirect()->route('profile.show', ['id' => Auth::user()->id])
+                ->with('success', 'Вы успешно вошли в систему.');
         }
 
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
+            'username' => 'Неверные учетные данные.',
         ]);
     }
 
-    public function showProfileForm()
-    {
-        return view('profile.form');
-    }
-
+    // Отображение профиля
     public function showProfile($id)
     {
         $user = User::find($id);
         if (!$user) {
-            return redirect()->route('users.index')->with('error', 'Пользователь не найден.');
+            return redirect()->route('home')->with('error', 'Пользователь не найден.');
         }
         return view('profile.show', compact('user'));
     }
 
-    public function saveProfile(Request $request)
-    {
-        $request->validate([
-            'last_name' => 'required',
-            'first_name' => 'required',
-            'middle_name' => 'nullable',
-            'age' => 'required|integer',
-        ]);
-
-        $user = Auth::user();
-        $user->update([
-            'last_name' => $request->last_name,
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'age' => $request->age,
-        ]);
-
-        return redirect()->route('profile.show', ['id' => $user->id])->with('success', 'Profile updated successfully.');
-    }
-
+    // Обновление профиля
     public function updateProfile(Request $request, $id)
     {
         $request->validate([
@@ -107,7 +90,7 @@ class AuthController extends Controller
 
         $user = User::find($id);
         if (!$user) {
-            return redirect()->route('users.index')->with('error', 'Пользователь не найден.');
+            return redirect()->route('home')->with('error', 'Пользователь не найден.');
         }
 
         $user->update([
@@ -117,14 +100,16 @@ class AuthController extends Controller
             'age' => $request->age,
         ]);
 
-        return redirect()->route('profile.show', ['id' => $user->id])->with('success', 'Профиль успешно обновлен.');
+        return redirect()->route('profile.show', ['id' => $user->id])
+            ->with('success', 'Профиль успешно обновлен.');
     }
 
+    // Выход из системы
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect()->route('home')->with('success', 'Вы успешно вышли из системы.');
     }
 }

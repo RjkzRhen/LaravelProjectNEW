@@ -1,33 +1,46 @@
 @extends('layouts.app')
 
-@section('title', 'Create Employee')
+@section('title', 'Добавить сотрудника')
 
 @section('content')
-    <div class="container">
-        <h1 class="display-4 text-primary mb-4">Добавить Сотрудника</h1>
-        <form action="{{ route('employees.store') }}" method="POST" class="needs-validation" novalidate>
-            @csrf
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" class="form-control" required>
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Добавить сотрудника</p>
             </div>
-            <div class="mb-3">
-                <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" id="firstName" name="firstName" class="form-control" required>
+
+            <div class="form-content">
+                <form action="{{ route('employees.store') }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastName">Фамилия:</label>
+                                <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Фамилия" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">Имя:</label>
+                                <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Имя" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Отчество:</label>
+                                <input type="text" name="middleName" id="middleName" class="form-control" placeholder="Отчество">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="position">Должность:</label>
+                                <input type="text" name="position" id="position" class="form-control" placeholder="Должность" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telegramId">Telegram ID:</label>
+                                <input type="text" name="telegramId" id="telegramId" class="form-control" placeholder="Telegram ID">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btnSubmit">Добавить</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="middleName" class="form-label">Middle Name:</label>
-                <input type="text" id="middleName" name="middleName" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="position" class="form-label">Position:</label>
-                <input type="text" id="position" name="position" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="telegramId" class="form-label">Telegram ID:</label>
-                <input type="text" id="telegramId" name="telegramId" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Create</button>
-        </form>
+        </div>
     </div>
 @endsection

@@ -3,9 +3,8 @@
 @section('title', 'Welcome')
 
 @section('content')
-    <h1>Добро пожаловать!</h1>
-@endsection
-
-@section('javascripts')
-    <!-- Дополнительные скрипты, если необходимо -->
+    <div class="full-page-background">
+        <h1>Добро пожаловать!</h1>
+        <p>Это главная страница. Используйте боковое меню для входа или регистрации.</p>
+    </div>
 @endsection

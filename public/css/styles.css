@@ -1,0 +1,566 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Устанавливает шрифт Roboto */
+    margin: 0; /* Убирает отступы по умолчанию */
+    padding: 0; /* Убирает внутренние отступы по умолчанию */
+    background-image: url('../images/background.jpg'); /* Путь к вашей фотографии */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Стили для сайдбара */
+aside {
+    color: #fff; /* Белый цвет текста */
+    width: 220px; /* Фиксированная ширина сайдбара */
+    padding-left: 20px; /* Отступ слева */
+    height: 100vh; /* Высота сайдбара на всю высоту экрана */
+    background-image: url('../images/fon2.jpg'); /* Путь к вашей фотографии */
+    background-size: cover;
+    background-position: center;
+    border-top-right-radius: 80px; /* Скругление верхнего правого угла */
+    position: fixed; /* Фиксированное позиционирование */
+    top: 0; /* Прижимает сайдбар к верхнему краю */
+    left: 0; /* Прижимает сайдбар к левому краю */
+    z-index: 1000; /* Устанавливает сайдбар поверх других элементов */
+}
+
+aside a {
+    font-size: 18px; /* Увеличивает размер шрифта ссылок */
+    color: #fff; /* Белый цвет текста */
+    display: block; /* Ссылки отображаются как блоки */
+    padding: 15px; /* Внутренние отступы */
+    padding-left: 35px; /* Отступ слева */
+    text-decoration: none; /* Убирает подчеркивание ссылок */
+    -webkit-tap-highlight-color: transparent; /* Убирает выделение при нажатии на ссылку */
+    font-weight: 500; /* Добавляет жирность шрифту */
+}
+
+aside a:hover {
+    color: #3f5efb; /* Синий цвет текста при наведении */
+    outline: none; /* Убирает обводку */
+    position: relative; /* Относительное позиционирование */
+    background: #fff; /* Белый фон при наведении */
+    border-top-left-radius: 25px; /* Скругление верхнего левого угла */
+    border-bottom-left-radius: 25px; /* Скругление нижнего левого угла */
+}
+
+aside a:hover::after {
+    content: ""; /* Создает псевдоэлемент */
+    position: absolute; /* Абсолютное позиционирование */
+    background-color: transparent; /* Прозрачный фон */
+    bottom: 100%; /* Позиционирует псевдоэлемент снизу */
+    right: 0; /* Прижимает к правому краю */
+    height: 35px; /* Высота псевдоэлемента */
+    width: 35px; /* Ширина псевдоэлемента */
+    border-bottom-right-radius: 18px; /* Скругление нижнего правого угла */
+    box-shadow: 0 20px 0 0 #fff; /* Создает эффект закругленного угла */
+}
+
+aside a:hover::before {
+    content: ""; /* Создает псевдоэлемент */
+    position: absolute; /* Абсолютное позиционирование */
+    background-color: transparent; /* Прозрачный фон */
+    top: 38px; /* Позиционирует псевдоэлемент сверху */
+    right: 0; /* Прижимает к правому краю */
+    height: 35px; /* Высота псевдоэлемента */
+    width: 35px; /* Ширина псевдоэлемента */
+    border-top-right-radius: 18px; /* Скругление верхнего правого угла */
+    box-shadow: 0 -20px 0 0 #fff; /* Создает эффект закругленного угла */
+}
+
+aside .submenu {
+    display: none; /* Скрывает подменю по умолчанию */
+    padding-left: 20px; /* Отступ слева */
+}
+
+aside .submenu a {
+    font-size: 14px; /* Уменьшает размер шрифта для подменю */
+    padding-left: 45px; /* Отступ слева */
+}
+
+aside .submenu a:hover {
+    background: #e9ecef; /* Серый фон при наведении */
+    color: #3f5efb; /* Синий цвет текста при наведении */
+}
+
+aside p {
+    margin: 0; /* Убирает отступы для параграфов */
+    padding: 40px 0; /* Внутренние отступы */
+}
+
+/* Кнопка выхода */
+aside form button {
+    background: none; /* Прозрачный фон */
+    border: none; /* Убирает границу */
+    color: #fff; /* Белый цвет текста */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 14px; /* Размер шрифта */
+    padding: 12px; /* Внутренние отступы */
+    padding-left: 30px; /* Отступ слева */
+    display: block; /* Отображает как блок */
+    width: 100%; /* Ширина на всю ширину родителя */
+    text-align: left; /* Выравнивание текста по левому краю */
+}
+
+aside form button:hover {
+    color: #3f5efb; /* Синий цвет текста при наведении */
+    background: #fff; /* Белый фон при наведении */
+    border-top-left-radius: 20px; /* Скругление верхнего левого угла */
+    border-bottom-left-radius: 20px; /* Скругление нижнего левого угла */
+}
+
+/* Контент */
+.content {
+    margin-left: 110px; /* Отступ слева, равный ширине сайдбара */
+    padding: 20px; /* Внутренние отступы */
+    background-color: rgba(255, 255, 255, 0); /* Прозрачный фон */
+    min-height: 100vh; /* Минимальная высота на всю высоту экрана */
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+/* Стиль карточек пользователей */
+.user-card {
+    background-image: url('../images/fon.jpg'); /* Путь к вашей фотографии */
+    background-size: cover;
+    background-position: center;
+    border-radius: 42px; /* Скругление углов */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    padding: 20px; /* Внутренние отступы */
+    margin-bottom: 20px; /* Отступ снизу */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анимация при наведении */
+    border: 1px solid #e0e0e0; /* Светлая граница */
+}
+
+.user-card:hover {
+    transform: translateY(-5px); /* Легкое поднятие при наведении */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Увеличение тени при наведении */
+}
+
+.user-card h3 {
+    font-size: 20px; /* Размер шрифта */
+    margin-bottom: 10px; /* Отступ снизу */
+    color: #2c3e50; /* Темно-синий цвет текста */
+}
+
+.user-card p {
+    margin-bottom: 8px; /* Отступ снизу */
+    color: #555; /* Серый цвет текста */
+}
+
+.user-card .actions {
+    margin-top: 15px; /* Отступ сверху */
+}
+
+.user-card .btn {
+    font-size: 14px; /* Размер шрифта */
+    padding: 5px 10px; /* Внутренние отступы */
+    margin-right: 10px; /* Отступ справа */
+    border-radius: 6px; /* Скругление углов */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Анимация при наведении */
+}
+
+.user-card .btn-danger {
+    background-color: #e74c3c; /* Красный фон */
+    border-color: #e74c3c; /* Красная граница */
+    color: #fff; /* Белый текст */
+}
+
+.user-card .btn-info {
+    background-color: #3498db; /* Синий фон */
+    border-color: #3498db; /* Синяя граница */
+    color: #fff; /* Белый текст */
+}
+
+.user-card .btn:hover {
+    transform: scale(1.05); /* Увеличение при наведении */
+}
+
+/* Стили для фонового изображения */
+.full-page-background {
+    background-color: rgba(255, 255, 255, 0); /* Прозрачный фон */
+    background-size: cover; /* Растягивает изображение на всю ширину */
+    background-position: center; /* Центрирует изображение */
+    min-height: 100vh; /* Минимальная высота на всю высоту экрана */
+    display: flex; /* Использует flexbox для выравнивания */
+    align-items: center; /* Выравнивает по вертикали */
+    justify-content: center; /* Выравнивает по горизонтали */
+    position: relative; /* Относительное позиционирование */
+    z-index: 1; /* Устанавливает фоновое изображение ниже сайдбара */
+}
+
+/* Стили для кнопок "Вход" и "Регистрация" */
+.welcome-buttons {
+    position: absolute; /* Абсолютное позиционирование */
+    top: 50%; /* Позиционирует кнопки по центру вертикально */
+    left: 50%; /* Позиционирует кнопки по центру горизонтально */
+    transform: translate(-50%, -50%); /* Центрирует кнопки */
+    display: flex; /* Использует flexbox для выравнивания */
+    flex-direction: column; /* Располагает кнопки вертикально */
+    align-items: center; /* Выравнивает по горизонтали */
+    justify-content: center; /* Выравнивает по вертикали */
+    gap: 50px; /* Добавляет больше отступов между кнопками */
+    z-index: 2; /* Устанавливает кнопки поверх фонового изображения */
+}
+
+.welcome-buttons button {
+    background-color: #3498db; /* Синий фон */
+    color: #ffffff; /* Белый текст */
+    padding: 15px 66px; /* Внутренние отступы */
+    border: none; /* Убирает границу */
+    border-radius: 8px; /* Скругление углов */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 18px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Анимация при наведении */
+}
+
+.welcome-buttons button:hover {
+    background-color: #2980b9; /* Темно-синий фон при наведении */
+}
+
+/* Стили для формы входа */
+.login-form-container {
+    display: block; /* Показывает форму по умолчанию */
+    position: absolute; /* Абсолютное позиционирование */
+    top: 50%; /* Позиционирует форму по центру вертикально */
+    left: 50%; /* Позиционирует форму по центру горизонтально */
+    transform: translate(-50%, -50%); /* Центрирует форму */
+    background-color: #ffffff; /* Белый фон */
+    padding: 30px; /* Внутренние отступы */
+    border-radius: 12px; /* Скругление углов */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень */
+    width: 100%; /* Ширина на всю ширину родителя */
+    max-width: 400px; /* Максимальная ширина */
+    z-index: 3; /* Устанавливает форму поверх других элементов */
+}
+
+.login-form-container.active {
+    display: block; /* Показывает форму, когда она активна */
+}
+
+.login-form-container h3 {
+    font-size: 24px; /* Размер шрифта */
+    color: #2c3e50; /* Темно-синий цвет текста */
+    margin-bottom: 20px; /* Отступ снизу */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+.login-form-container .form-group {
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.login-form-container input[type="text"],
+.login-form-container input[type="password"] {
+    width: 100%; /* Ширина на всю ширину родителя */
+    padding: 12px; /* Внутренние отступы */
+    border: 1px solid #ccc; /* Серая граница */
+    border-radius: 6px; /* Скругление углов */
+    background-color: #f9f9f9; /* Светло-серый фон */
+    color: #333; /* Темный цвет текста */
+    transition: border-color 0.3s ease; /* Анимация при фокусе */
+}
+
+.login-form-container input[type="text"]:focus,
+.login-form-container input[type="password"]:focus {
+    border-color: #3498db; /* Синяя граница при фокусе */
+    outline: none; /* Убирает обводку */
+}
+
+.login-form-container button[type="submit"] {
+    background-color: #27ae60; /* Зеленый фон */
+    border: none; /* Убирает границу */
+    color: #ffffff; /* Белый текст */
+    padding: 12px 20px; /* Внутренние отступы */
+    border-radius: 6px; /* Скругление углов */
+    cursor: pointer; /* Курсор в виде указателя */
+    width: 100%; /* Ширина на всю ширину родителя */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Анимация при наведении */
+}
+
+.login-form-container button[type="submit"]:hover {
+    background-color: #219653; /* Темно-зеленый фон при наведении */
+}
+
+/* Стили для формы регистрации */
+.register-form-container {
+    display: block; /* Показывает форму по умолчанию */
+    position: absolute; /* Абсолютное позиционирование */
+    top: 50%; /* Позиционирует форму по центру вертикально */
+    left: 50%; /* Позиционирует форму по центру горизонтально */
+    transform: translate(-50%, -50%); /* Центрирует форму */
+    background-color: #ffffff; /* Белый фон */
+    padding: 30px; /* Внутренние отступы */
+    border-radius: 12px; /* Скругление углов */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень */
+    width: 100%; /* Ширина на всю ширину родителя */
+    max-width: 600px; /* Максимальная ширина */
+    z-index: 3; /* Устанавливает форму поверх других элементов */
+}
+
+.register-form-container.active {
+    display: block; /* Показывает форму, когда она активна */
+}
+
+.register-form-container h3 {
+    font-size: 24px; /* Размер шрифта */
+    color: #2c3e50; /* Темно-синий цвет текста */
+    margin-bottom: 20px; /* Отступ снизу */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+.register-form-container .form-group {
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.register-form-container input[type="text"],
+.register-form-container input[type="number"],
+.register-form-container input[type="password"] {
+    width: 100%; /* Ширина на всю ширину родителя */
+    padding: 12px; /* Внутренние отступы */
+    border: 1px solid #ccc; /* Серая граница */
+    border-radius: 6px; /* Скругление углов */
+    background-color: #f9f9f9; /* Светло-серый фон */
+    color: #333; /* Темный цвет текста */
+    transition: border-color 0.3s ease; /* Анимация при фокусе */
+}
+
+.register-form-container input[type="text"]:focus,
+.register-form-container input[type="number"]:focus,
+.register-form-container input[type="password"]:focus {
+    border-color: #3498db; /* Синяя граница при фокусе */
+    outline: none; /* Убирает обводку */
+}
+
+.register-form-container button[type="submit"] {
+    background-color: #27ae60; /* Зеленый фон */
+    border: none; /* Убирает границу */
+    color: #ffffff; /* Белый текст */
+    padding: 12px 20px; /* Внутренние отступы */
+    border-radius: 6px; /* Скругление углов */
+    cursor: pointer; /* Курсор в виде указателя */
+    width: 100%; /* Ширина на всю ширину родителя */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Анимация при наведении */
+}
+
+.register-form-container button[type="submit"]:hover {
+    background-color: #219653; /* Темно-зеленый фон при наведении */
+}
+
+/* Стили для формы входа и регистрации */
+.register-form {
+    background-color: #ffffff; /* Белый фон */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    width: 100%;
+    max-width: 600px; /* Увеличенная ширина для компактности */
+    margin: 0 auto; /* Центрирование формы */
+    border: 1px solid #e0e0e0; /* Светлая граница */
+}
+
+.register-form h1,
+.register-form h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2c3e50; /* Темно-синий текст */
+    text-align: center; /* Заголовок по центру */
+}
+
+.register-form .form-group {
+    margin-bottom: 20px;
+}
+
+.register-form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+.register-form input[type="text"],
+.register-form input[type="number"],
+.register-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.register-form input[type="text"]:focus,
+.register-form input[type="number"]:focus,
+.register-form input[type="password"]:focus {
+    border-color: #3498db; /* Синий при фокусе */
+    outline: none;
+}
+
+.register-form button[type="submit"] {
+    background-color: #27ae60; /* Зеленый */
+    border: none;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%; /* Кнопка на всю ширину */
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 20px; /* Отступ сверху */
+}
+
+.register-form button[type="submit"]:hover {
+    background-color: #219653; /* Темно-зеленый при наведении */
+    transform: scale(1.02); /* Увеличение при наведении */
+}
+
+.auth-background {
+    background-image: url('../images/background.jpg'); /* Путь к вашей фотографии */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Стили для страницы профиля */
+.profile-background {
+    background-color: rgba(255, 255, 255, 0); /* Прозрачный фон */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Стили для контента на фоне */
+.profile-content {
+    background-color: rgba(255, 255, 255, 0); /* Полупрозрачный белый фон для контента */
+    padding: 40px; /* Увеличиваем внутренние отступы */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px; /* Увеличиваем максимальную ширину контента */
+    margin: 20px; /* Добавляем отступы */
+}
+
+/* Стили для карточки профиля */
+.profile-card {
+    background-color: #ffffff; /* Белый фон */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px; /* Увеличиваем внутренние отступы */
+    margin-bottom: 20px;
+}
+
+/* Стили для заголовков */
+.profile-card h3 {
+    font-size: 28px; /* Увеличиваем размер шрифта */
+    color: #2c3e50; /* Темно-синий цвет текста */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Стили для текста */
+.profile-card p {
+    font-size: 18px; /* Увеличиваем размер шрифта */
+    color: #555; /* Серый цвет текста */
+    margin-bottom: 15px;
+}
+
+/* Стили для кнопки редактирования */
+.profile-card .btn-primary {
+    font-size: 18px; /* Увеличиваем размер шрифта */
+    padding: 10px 20px; /* Увеличиваем внутренние отступы */
+}
+
+/* Убедитесь, что модальное окно отображается поверх других элементов */
+.modal {
+    z-index: 1110;
+}
+
+/* Стили для кнопки редактирования */
+.profile-card .btn-primary {
+    font-size: 18px; /* Увеличиваем размер шрифта */
+    padding: 10px 20px; /* Увеличиваем внутренние отступы */
+}
+/* Стили для контейнера настроек */
+/* Стили для контейнера настроек */
+.settings-form-container {
+    position: absolute;
+    top: 20px;
+    left: 160px; /* Размещение в верхнем левом углу */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+/* Стили для формы настроек */
+.settings-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-form .form-group {
+    margin-bottom: 20px;
+}
+
+.settings-form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+.settings-form input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.settings-form input[type="number"]:focus {
+    border-color: #3498db; /* Синий при фокусе */
+    outline: none;
+}
+
+.settings-form button[type="submit"] {
+    background-color: #27ae60; /* Зеленый */
+    border: none;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%; /* Кнопка на всю ширину */
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.settings-form button[type="submit"]:hover {
+    background-color: #219653; /* Темно-зеленый при наведении */
+    transform: scale(1.02); /* Увеличение при наведении */
+}
+
+/* Стили для сообщений об успехе */
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 20px;
+}

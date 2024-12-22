@@ -3,31 +3,35 @@
 @section('title', 'Добавить номер')
 
 @section('content')
-    <div class="container">
-        <h1 class="display-4 text-primary mb-4">Добавить номер</h1>
-        <form action="{{ route('phones.store') }}" method="POST" class="needs-validation" novalidate>
-            @csrf
-            <div class="mb-3">
-                <label for="user_id" class="form-label">ФИО Пользователя:</label>
-                <select name="user_id" class="form-select" required>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->last_name }} {{ $user->first_name }} {{ $user->middle_name }}</option>
-                    @endforeach
-                </select>
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Добавить номер</p>
             </div>
-            <div class="mb-3">
-                <label for="values" class="form-label">Номера:</label>
-                <div id="phone_values_container">
-                    <input type="text" name="values[]" class="form-control" required>
-                </div>
+
+            <div class="form-content">
+                <form action="{{ route('phones.store') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">Пользователь:</label>
+                        <select name="user_id" class="form-select" required>
+                            <option selected disabled value="">Выберите пользователя</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">
+                                    {{ $user->last_name }} {{ $user->first_name }} {{ $user->middle_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div id="phone_values_container" class="mb-3">
+                        <label for="values[]" class="form-label">Номер:</label>
+                        <input type="text" name="values[]" class="form-control" placeholder="Номер" required>
+                    </div>
+                    <button type="button" id="add_phone_button" class="btn btn-secondary mb-3">Добавить номер</button>
+                    <button type="submit" class="btnSubmit">Сохранить</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <button type="button" id="add_phone_button" class="btn btn-secondary mb-3">Добавить номер</button>
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Сохранить</button>
-            </div>
-        </form>
+        </div>
     </div>
 
     <script>
@@ -39,8 +43,9 @@
                 const newField = document.createElement('input');
                 newField.type = 'text';
                 newField.name = 'values[]';
-                newField.className = 'form-control mb-3';
+                newField.placeholder = 'Номер';
                 newField.required = true;
+                newField.classList.add('form-control', 'mb-3');
                 container.appendChild(newField);
             });
         });

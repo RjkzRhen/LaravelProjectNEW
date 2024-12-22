@@ -1,34 +1,47 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Employee')
+@section('title', 'Редактировать сотрудника')
 
 @section('content')
-    <div class="container">
-        <h1 class="display-4 text-primary mb-4">Edit Employee</h1>
-        <form action="{{ route('employees.update', $employee->id) }}" method="POST" class="needs-validation" novalidate>
-            @csrf
-            @method('PUT')
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" class="form-control" value="{{ $employee->lastName }}" required>
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Редактировать сотрудника</p>
             </div>
-            <div class="mb-3">
-                <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" id="firstName" name="firstName" class="form-control" value="{{ $employee->firstName }}" required>
+
+            <div class="form-content">
+                <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastName">Фамилия:</label>
+                                <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Фамилия" value="{{ $employee->lastName }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">Имя:</label>
+                                <input type="text" name="firstName" id="firstName" class="form-control" placeholder="Имя" value="{{ $employee->firstName }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Отчество:</label>
+                                <input type="text" name="middleName" id="middleName" class="form-control" placeholder="Отчество" value="{{ $employee->middleName }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="position">Должность:</label>
+                                <input type="text" name="position" id="position" class="form-control" placeholder="Должность" value="{{ $employee->position }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telegramId">Telegram ID:</label>
+                                <input type="text" name="telegramId" id="telegramId" class="form-control" placeholder="Telegram ID" value="{{ $employee->telegramId }}">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btnSubmit">Сохранить</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="middleName" class="form-label">Middle Name:</label>
-                <input type="text" id="middleName" name="middleName" class="form-control" value="{{ $employee->middleName }}">
-            </div>
-            <div class="mb-3">
-                <label for="position" class="form-label">Position:</label>
-                <input type="text" id="position" name="position" class="form-control" value="{{ $employee->position }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="telegramId" class="form-label">Telegram ID:</label>
-                <input type="text" id="telegramId" name="telegramId" class="form-control" value="{{ $employee->telegramId }}">
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-        </form>
+        </div>
     </div>
 @endsection
