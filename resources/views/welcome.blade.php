@@ -3,8 +3,9 @@
 @section('title', 'Welcome')
 
 @section('content')
-    <div class="full-page-background">
-        <h1>Добро пожаловать!</h1>
-        <p>Это главная страница. Используйте боковое меню для входа или регистрации.</p>
+    <div class="welcome-content">
+        <h1 class="welcome-title">Добро пожаловать!</h1>
+        <p class="welcome-subtitle">Это главная страница вашего проекта.</p>
+        </div>
     </div>
 @endsection

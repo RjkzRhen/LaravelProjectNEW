@@ -86,6 +86,7 @@ class AuthController extends Controller
             'first_name' => 'required',
             'middle_name' => 'nullable',
             'age' => 'required|integer',
+            'phone' => 'nullable|string|max:255', // Добавляем валидацию для телефона
         ]);
 
         $user = User::find($id);
@@ -99,6 +100,16 @@ class AuthController extends Controller
             'middle_name' => $request->middle_name,
             'age' => $request->age,
         ]);
+
+        // Обновляем или создаем телефон
+        if ($request->phone) {
+            $phone = $user->phones()->first();
+            if ($phone) {
+                $phone->update(['value' => $request->phone]);
+            } else {
+                $user->phones()->create(['value' => $request->phone]);
+            }
+        }
 
         return redirect()->route('profile.show', ['id' => $user->id])
             ->with('success', 'Профиль успешно обновлен.');

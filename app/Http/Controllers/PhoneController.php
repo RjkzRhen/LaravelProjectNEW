@@ -9,14 +9,30 @@ use Illuminate\Support\Facades\Auth;
 
 class PhoneController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (!Auth::user()->hasRole('Role_ADMIN')) {
             return redirect()->route('home')->with('error', 'У вас нет доступа к этой странице.');
         }
 
-        $users = User::with('phones')->get();
-        return view('phones.index', compact('users'));
+        $query = User::with('phones');
+
+        // Фильтрация
+        $filterField = $request->input('filterField', '');
+        $filterValue = $request->input('filterValue', '');
+
+        if ($filterField && $filterValue) {
+            $query->where($filterField, 'like', '%' . $filterValue . '%');
+        }
+
+        // Сортировка
+        $sortField = $request->input('sortField', 'id');
+        $sortDirection = $request->input('sortDirection', 'asc');
+        $query->orderBy($sortField, $sortDirection);
+
+        $users = $query->get();
+
+        return view('phones.index', compact('users', 'sortField', 'sortDirection', 'filterField', 'filterValue'));
     }
 
     public function create()

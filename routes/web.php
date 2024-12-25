@@ -22,7 +22,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Маршруты для профиля
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}', [AuthController::class, 'showProfile'])->name('profile.show');
-    Route::post('/profile/{id}/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/profile/update/{id}', [AuthController::class, 'updateProfile'])->name('profile.update');
 
     // Маршруты для пользователей (только для Role_ADMIN)
     Route::middleware('auth')->group(function () {

@@ -30,7 +30,7 @@
                                     <label for="age" class="form-label">Возраст</label>
                                     <input type="number" class="form-control" id="age" name="age" required>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                                <button type="button" id="saveProfile" class="btn btn-success">Сохранить</button>
                             </form>
                         </div>
                     </div>
@@ -39,3 +39,4 @@
         </div>
     </section>
 @endsection
+

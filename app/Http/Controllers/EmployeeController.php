@@ -25,14 +25,11 @@ class EmployeeController extends Controller
         }
 
         // Сортировка
-        $sortField = $request->input('sort', 'id');
-        $sortDirection = $request->input('direction', 'asc');
+        $sortField = $request->input('sortField', 'id');
+        $sortDirection = $request->input('sortDirection', 'asc');
         $query->orderBy($sortField, $sortDirection);
 
         $employees = $query->get();
-
-        // Устанавливаем переменную сессии для указания текущего раздела
-        $request->session()->put('current_section', 'employees');
 
         return view('employees.index', compact('employees', 'sortField', 'sortDirection', 'filterField', 'filterValue'));
     }
